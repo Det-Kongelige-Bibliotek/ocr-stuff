@@ -22,8 +22,8 @@ which should not damage the encoding further.
 
 ## Hypertext & References
 
-Each METS file seem to contain a <fileSec> ... </fileSec> with two <fileGrp>...</fileGrp> which have USE="Image" and USE="Text". I am certain but it might not be possible to sort OCR or images in document order based on file name. Rather it has to be done based on <structMap TYPE="PHYSICAL"> </structMap> where each <div> ... </div> has an ORDER attribute containing a natural an integer which is zero for cover and spine etc but contains the ordering for the content.
+Each METS file seem to contain a &lt;fileSec> ... &lt;/fileSec> with two &lt;fileGrp>...&lt;/fileGrp> which have USE="Image" and USE="Text". I am certain but it might not be possible to sort OCR or images in document order based on file name. Rather it has to be done based on &lt;structMap TYPE="PHYSICAL"> &lt;/structMap> where each &lt;div> ... &lt;/div> has an ORDER attribute containing a natural an integer which is zero for cover and spine etc but contains the ordering for the content.
 
 1. File names seem to be unique in the whole corpus, not only per directory.
 
-2. On each <div> ... </div> there is also a LABEL attribute "Chapter page" or "None"
+2. On each &lt;div> ... &lt;/div> there is also a LABEL attribute "Chapter page" or "None"
