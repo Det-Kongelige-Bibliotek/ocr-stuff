@@ -27,3 +27,4 @@ Each METS file seem to contain a &lt;fileSec> ... &lt;/fileSec> with two &lt;fil
 1. File names seem to be unique in the whole corpus, not only per directory.
 
 2. On each &lt;div> ... &lt;/div> there is also a LABEL attribute "Chapter page" or "None"
+
