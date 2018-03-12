@@ -16,7 +16,7 @@ Universæ theologiæ systema in quo omnes ac singuli religionis Christianæ arti
 
 Fixable using simple scripting
 
- perl -ne 's/&amp;#/&#/g;print;' damaged_file.xml > fixed_file.xml
+ perl -ne 's/&amp;amp;#/&#/g;print;' damaged_file.xml > fixed_file.xml
 
 which should not damage the encoding further.
 
