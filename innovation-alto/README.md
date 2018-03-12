@@ -28,3 +28,23 @@ Each METS file seem to contain a &lt;fileSec> ... &lt;/fileSec> with two &lt;fil
 
 2. On each &lt;div> ... &lt;/div> there is also a LABEL attribute "Chapter page" or "None"
 
+## damaged xml
+
+To limit myself, I decided I'll go for Disk-017. In that subset I found the following damaged xml files. Given one file, I deleted the whole object.
+
+Disk-017/den-kbd-all-110604000364/den-kbd-all-110604000364-001/ocr/den-kbd-all-110604000364-001-0017L.xml
+Disk-017/den-kbd-all-130018106842/den-kbd-all-130018106842-001/den-kbd-all-130018106842-001.xml
+Disk-017/den-kbd-all-130018106842/den-kbd-all-130018106842-001/ocr/den-kbd-all-130018106842-001-0119L.xml
+Disk-017/den-kbd-all-110508043358/den-kbd-all-110508043358-001/ocr/den-kbd-all-110508043358-001-0200R.xml
+Disk-017/den-kbd-all-110304000759/den-kbd-all-110304000759-001/ocr/den-kbd-all-110304000759-001-1254R.xml
+Disk-017/den-kbd-all-110408012155/den-kbd-all-110408012155-001/ocr/den-kbd-all-110408012155-001-0229L.xml
+
+## Volumes to work with
+
+Selected four volumes
+
+| Language | "ID" |
+| Danish | den-kbd-all-110304010217 | 
+| French | den-kbd-all-110308027669 |
+| Latin  | den-kbd-all-110308039908 |
+| Unknown| den-kbd-all-110308050622 |
