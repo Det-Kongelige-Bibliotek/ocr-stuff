@@ -30,7 +30,7 @@ Each METS file seem to contain a &lt;fileSec> ... &lt;/fileSec> with two &lt;fil
 
 ## damaged xml
 
-To limit myself, I decided I'll go for Disk-017. In that subset I found the following damaged xml files. Given one file, I deleted the whole object.
+To limit myself, I decided I'll go for Disk-017. In that subset I found the following damaged xml files.
 
 Disk-017/den-kbd-all-110604000364/den-kbd-all-110604000364-001/ocr/den-kbd-all-110604000364-001-0017L.xml
 Disk-017/den-kbd-all-130018106842/den-kbd-all-130018106842-001/den-kbd-all-130018106842-001.xml
@@ -38,6 +38,8 @@ Disk-017/den-kbd-all-130018106842/den-kbd-all-130018106842-001/ocr/den-kbd-all-1
 Disk-017/den-kbd-all-110508043358/den-kbd-all-110508043358-001/ocr/den-kbd-all-110508043358-001-0200R.xml
 Disk-017/den-kbd-all-110304000759/den-kbd-all-110304000759-001/ocr/den-kbd-all-110304000759-001-1254R.xml
 Disk-017/den-kbd-all-110408012155/den-kbd-all-110408012155-001/ocr/den-kbd-all-110408012155-001-0229L.xml
+
+The damaged files are six in 168098, which is negligible. However, one of them is a volume out of 422. I omitted the all the affected volumes from my test, which makes about 1% of the corpus.
 
 ## Volumes to work with
 
@@ -51,4 +53,5 @@ Selected four volumes
 | Unknown| den-kbd-all-110308050622 |
 
 [Images are in IIP image](http://kb-images.kb.dk/public/pq/den-kbd-all-110304010217/den-kbd-all-110304010217-000/den-kbd-all-110304010217-000-0000B/full/full/0/native.jpg) See also [image delivery](https://github.com/Det-Kongelige-Bibliotek/access-digital-objects/blob/master/image-delivery.md#constructing-iiif-uris)
+
 

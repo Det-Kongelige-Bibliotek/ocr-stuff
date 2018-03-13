@@ -1,0 +1,26 @@
+<c:collection xmlns:c="http://exist-db.org/collection-config/1.0"
+	      xmlns:mts="http://www.loc.gov/METS/"
+	      xmlns:mds="http://www.loc.gov/mods/v3"
+	      xmlns:xlink="http://www.w3.org/1999/xlink">
+  <c:index>
+    <c:lucene>
+       <c:analyzer class="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
+       <c:text qname="mts:mets" />
+       <c:text qname="@mts:LABEL"/>
+       <c:text qname="@mts:ID"/>
+       <c:text qname="mds:mods" />
+       <c:text qname="alto"/>
+       <c:text qname="@ID"/>
+       <c:text qname="@CONTENT"/>
+    </c:lucene>
+    <c:create>
+       <c:create qname="mts:mets" />
+       <c:create qname="@mts:LABEL"/>
+       <c:create qname="@mts:ID"/>
+       <c:create qname="mds:mods" />
+       <c:create qname="alto"/>
+       <c:create qname="@ID"/>
+       <c:create qname="@CONTENT"/>
+    </c:create>
+  </c:index>
+</c:collection>
