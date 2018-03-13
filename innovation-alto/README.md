@@ -49,3 +49,5 @@ Selected four volumes
 | French | den-kbd-all-110308027669 |
 | Latin  | den-kbd-all-110308039908 |
 | Unknown| den-kbd-all-110308050622 |
+
+[Images are in IIP image](http://kb-images.kb.dk/public/pq/den-kbd-all-110304010217/den-kbd-all-110304010217-000/den-kbd-all-110304010217-000-0000B/full/full/0/native.jpg)
