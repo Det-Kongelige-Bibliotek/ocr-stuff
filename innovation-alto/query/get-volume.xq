@@ -6,21 +6,36 @@ declare namespace request="http://exist-db.org/xquery/request";
 declare namespace response="http://exist-db.org/xquery/response";
 declare namespace mts="http://www.loc.gov/METS/";
 declare namespace mds="http://www.loc.gov/mods/v3";
+declare namespace xlink="http://www.w3.org/1999/xlink";
 
 declare option exist:serialize "method=xml media-type=text/html encoding=UTF-8";           
 
-declare function local:pages($doc as node()) as node()
+declare function local:get-page($doc as node(), $pageid as xs:string, $objectid as xs:string ) as node()
+{
+let $pg := <br/>
+
+return $pg
+};
+
+declare function local:get-file-uri($doc as node(), $objectid as xs:string ) as xs:string
+{
+let $pg := $doc//mts:file[@ID=$objectid]/mts:FLocat/@xlink:href/string()
+
+return $pg
+};
+
+declare function local:pages($thewhole as node(),$doc as node(),$did as xs:string) as node()
 {
 
 let $pages :=
 <table>{
 for $d in $doc/mts:div|$doc/mts:fptr
   return
-  if(local-name($d)="div") then <tr><td valign="top">{$d/@ID/string()}</td><td valign="top">{local:pages($d)}</td></tr>
+  if(local-name($d)="div") then <tr><td valign="top">{$d/@ID/string()} lable={$d/@LABEL/string()}</td><td valign="top">{local:pages($thewhole,$d,$did)}</td></tr>
   else 
   <ul> {
   for $a in $d//mts:area
-    return <li>{$a/@FILEID/string()}</li>
+    return <li>{local:get-file-uri($thewhole,$a/@FILEID/string())}</li>
   } </ul>		
 }</table>
 
@@ -52,7 +67,7 @@ return
 	  let $did := $r//mds:recordInfo/mds:recordIdentifier/string()
 	  let $tit := $r//mds:title/string()
 	  let $notes := for $n in $r//mds:note return <span>{$n/string()}<br/></span>
-          return <div><p><strong>Author:</strong> {$author}<br/><strong>Title:</strong> {$tit}<br/><strong>Record:</strong> {$did}<br/><strong>Note:</strong>{$notes}</p><div>{local:pages($doc//mts:structMap)}</div></div>
+          return <div><p><strong>Author:</strong> {$author}<br/><strong>Title:</strong> {$tit}<br/><strong>Record:</strong> {$did}<br/><strong>Note:</strong>{$notes}</p><div><h2>Contents</h2>{if($page) then local:get-page($doc,$page,$did) else local:pages($doc,$doc//mts:structMap,$did)}</div></div>
 
 }
 </div>
