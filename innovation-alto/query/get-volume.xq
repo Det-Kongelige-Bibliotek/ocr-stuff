@@ -25,12 +25,16 @@ return
 	where contains(util:document-name($d),$id)
 	return $d
 
-	let $author := 
-	for $a in $doc//mts:dmdSec[@ID="MODSMD_PRINT"]//mds:mods/mds:name[@type="personal" and contains(./mds:role/mds:roleTerm,"author")]
-	return $a/mds:namePart/string()
-	let $did := $doc//mts:dmdSec[@ID="MODSMD_PRINT"]//mds:mods/mds:recordInfo/mds:recordIdentifier/string()
-	let $tit := $doc//mts:dmdSec[@ID="MODSMD_PRINT"]//mds:mods//mds:title/string()
-	return <p><strong>Author:</strong> {$author}<br/><strong>Title:</strong> {$tit}<br/><strong>Record:</strong> {$did}</p>
+	for $r in $doc//mds:mods[mds:recordInfo]
+	  let $author := 
+	  for $a in $r//mds:name[@type="personal" and contains(./mds:role/mds:roleTerm,"author")]
+	  return $a/mds:namePart/string()
+	  let $did := $r//mds:recordInfo/mds:recordIdentifier/string()
+	  let $tit := $r//mds:title/string()
+	  let $notes := 
+	  for $n in $r//mds:note
+	  return <span>{$n/string()}<br/></span>
+	  return <p><strong>Author:</strong> {$author}<br/><strong>Title:</strong> {$tit}<br/><strong>Record:</strong> {$did}<br/><strong>Note:</strong>{$notes}</p>
 }
 </div>
 </body>
