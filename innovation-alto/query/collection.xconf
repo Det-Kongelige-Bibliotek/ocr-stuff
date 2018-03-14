@@ -13,14 +13,14 @@
        <c:text qname="@ID"/>
        <c:text qname="@CONTENT"/>
     </c:lucene>
-    <c:create>
-       <c:create qname="mts:mets" />
-       <c:create qname="@mts:LABEL"/>
-       <c:create qname="@mts:ID"/>
-       <c:create qname="mds:mods" />
-       <c:create qname="alto"/>
-       <c:create qname="@ID"/>
-       <c:create qname="@CONTENT"/>
-    </c:create>
+    <c:range>
+      <c:create qname="mts:mets" />
+      <c:create qname="@mts:LABEL"/>
+      <c:create qname="@mts:ID"/>
+      <c:create qname="mds:mods" />
+      <c:create qname="alto"/>
+      <c:create qname="@ID"/>
+      <c:create qname="@CONTENT"/>
+    </c:range>
   </c:index>
 </c:collection>
