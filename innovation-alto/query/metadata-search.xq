@@ -10,7 +10,7 @@ declare namespace mds="http://www.loc.gov/mods/v3";
 declare option exist:serialize "method=xml media-type=text/html encoding=UTF-8";
            
 
-let $query  := request:get-parameter("q","placette")
+let $query  := request:get-parameter("q","")
 let $from   := xs:integer(request:get-parameter("start",1))
 let $to     := xs:integer(request:get-parameter("number",10)) + $from
 
