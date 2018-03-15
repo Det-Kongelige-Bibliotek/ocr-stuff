@@ -11,9 +11,36 @@ declare namespace xlink="http://www.w3.org/1999/xlink";
 declare option exist:serialize "method=xml media-type=text/html encoding=UTF-8";           
 
 
-let $id  := request:get-parameter("id","")
-let $query  := request:get-parameter("q","")
-let $page := request:get-parameter("page","")
+declare function local:browse($doc as node(), $pageid as xs:string,$direction as xs:string) as node()
+{
+let $id    := request:get-parameter("id","")
+let $query := request:get-parameter("q","")
+let $next  := if($direction = "previous") then $doc//mts:div[@ID=$pageid]/preceding::mts:div[1]/@ID/string() else $doc//mts:div[@ID=$pageid]/following::mts:div[1]/@ID/string()
+
+return if($next) then <a href="view-page.xq?id={$id}&amp;q={$query}&amp;page={$next}">{$direction}</a> else ()
+
+};
+
+declare function local:get-uri($doc as node(), $pageid as xs:string, $iftext as xs:string) as xs:string
+{
+let $pgdiv := $doc//mts:div[@ID=$pageid]
+
+let $file := if(contains($iftext,'text')) then
+$pgdiv//mts:fptr//mts:area[contains(@FILEID,"ALTO")]/@FILEID/string()
+else
+$pgdiv//mts:fptr//mts:area[contains(@FILEID,"IMG")]/@FILEID/string()
+
+let $uri :=  $doc//mts:file[@ID=$file]/mts:FLocat/@xlink:href/string()
+
+return $uri
+};
+
+
+
+
+let $id    := request:get-parameter("id","")
+let $query := request:get-parameter("q","")
+let $page  := request:get-parameter("page","")
 
 let $doc :=
 for $d in collection("/db/pq")//mts:mets
@@ -26,13 +53,14 @@ return
 <body>
 <h1>ID={$id}</h1>
 <form action="metadata-search.xq" method="get"><p>[<a href="start.xml">Start</a>]|[<input name="q" value="{$query}"/><input type="submit" value="search"/>]|[<a href="./get-volume.xq?id={$id}&amp;q={$query}">back to volume</a>]</p></form>
+<p>{local:browse($doc, $page,"previous")} | {local:browse($doc, $page,"next")}</p>
 <div style="width:45%; float: left;">
 <h2>text goes here</h2>
-
+<p>{local:get-uri($doc, $page, "text")}</p>
 </div>
 <div  style="width:45%; float: left;">
 <h2>image goes here</h2>
-
+<p>{local:get-uri($doc, $page, "image")}</p>
 </div>
 
 </body>
