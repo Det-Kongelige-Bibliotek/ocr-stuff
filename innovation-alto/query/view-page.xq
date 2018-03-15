@@ -11,7 +11,7 @@ declare namespace xlink="http://www.w3.org/1999/xlink";
 declare option exist:serialize "method=xml media-type=text/html encoding=UTF-8";           
 
 
-declare function local:browse($doc as node(), $pageid as xs:string,$direction as xs:string) as node()
+declare function local:browse($doc as node(), $pageid as xs:string,$direction as xs:string) as node()*
 {
 let $id    := request:get-parameter("id","")
 let $query := request:get-parameter("q","")
@@ -35,7 +35,22 @@ let $uri :=  $doc//mts:file[@ID=$file]/mts:FLocat/@xlink:href/string()
 return $uri
 };
 
+declare function local:make-iiif-uri($tiff as xs:string) as xs:string
+{
+let $width := "400,"
+let $iip  := "http://kb-images.kb.dk/public/pq/"
+let $iiif := concat("/full/",$width,"/0/native.jpg")
 
+let $start   := replace($tiff,"(^.*?)(den-kbd-all-)(\d+)(.*$)","$2$3") 
+let $section := replace($tiff,"(^.*?)(den-kbd-all-)(\d+)(-\d\d\d)(.*$)","$4") 
+let $page    := replace($tiff,"(^.*?)(den-kbd-all-)(\d+)(-\d\d\d)(.*?)(\.tiff?)$","$5") 
+
+(: file://./den-kbd-all-110408004677-001-0002R.tif
+
+den-kbd-all-110304010217/den-kbd-all-110304010217-000/den-kbd-all-110304010217-000-0000B/full/full/0/native.jpg:)
+
+return concat($iip,$start,"/",$start,$section,$page,$iiif)
+};
 
 
 let $id    := request:get-parameter("id","")
@@ -60,7 +75,12 @@ return
 </div>
 <div  style="width:45%; float: left;">
 <h2>image goes here</h2>
-<p>{local:get-uri($doc, $page, "image")}</p>
+<p>
+{
+let $tiff := local:get-uri($doc, $page, "image")
+return local:make-iiif-uri($tiff)
+}
+</p>
 </div>
 
 </body>
