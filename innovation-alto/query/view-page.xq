@@ -7,6 +7,7 @@ declare namespace response="http://exist-db.org/xquery/response";
 declare namespace mts="http://www.loc.gov/METS/";
 declare namespace mds="http://www.loc.gov/mods/v3";
 declare namespace xlink="http://www.w3.org/1999/xlink";
+declare default element namespace "";
 
 declare option exist:serialize "method=xml media-type=text/html encoding=UTF-8";           
 
@@ -71,14 +72,21 @@ return
 <p>{local:browse($doc, $page,"previous")} | {local:browse($doc, $page,"next")}</p>
 <div style="width:45%; float: left;">
 <h2>text goes here</h2>
-<p>{local:get-uri($doc, $page, "text")}</p>
+{
+
+let $ruri := local:get-uri($doc, $page, "text")
+
+let $text := replace(local:get-uri($doc, $page, "text"),"(^.*?)(ocr)(.*$)","$2$3") 
+
+return doc(resolve-uri($text,base-uri($doc)))
+
+}
 </div>
 <div  style="width:45%; float: left;">
 <h2>image goes here</h2>
 <p>
 {
 let $tiff := local:get-uri($doc, $page, "image")
-(:return local:make-iiif-uri($tiff):)
 return <img src="{local:make-iiif-uri($tiff)}" alt="{$tiff}"/>
 }
 </p>
