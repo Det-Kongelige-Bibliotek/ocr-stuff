@@ -15,6 +15,10 @@ let $id  := request:get-parameter("id","")
 let $query  := request:get-parameter("q","")
 let $page := request:get-parameter("page","")
 
+let $doc :=
+for $d in collection("/db/pq")//mts:mets
+where contains(util:document-name($d),$id)
+return $d
 
 return
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -22,7 +26,14 @@ return
 <body>
 <h1>ID={$id}</h1>
 <form action="metadata-search.xq" method="get"><p>[<a href="start.xml">Start</a>]|[<input name="q" value="{$query}"/><input type="submit" value="search"/>]</p></form>
-<div>
+<div style="width:45%; float: left;">
+<h2>text goes here</h2>
+{
+
+}
+</div>
+<div  style="width:45%; float: left;">
+<h2>image goes here</h2>
 {
 
 }
