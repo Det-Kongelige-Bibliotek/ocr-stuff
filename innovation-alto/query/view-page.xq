@@ -49,7 +49,7 @@ let $page    := replace($tiff,"(^.*?)(den-kbd-all-)(\d+)(-\d\d\d)(.*?)(\.tiff?)$
 
 den-kbd-all-110304010217/den-kbd-all-110304010217-000/den-kbd-all-110304010217-000-0000B/full/full/0/native.jpg:)
 
-return concat($iip,$start,"/",$start,$section,$page,$iiif)
+return if(contains($tiff,"..")) then concat($iip,$start,"/",$start,$section,$page,$iiif) else concat($iip,$start,"/",$start,$section,"/",$start,$section,$page,$iiif)
 };
 
 
@@ -78,7 +78,8 @@ return
 <p>
 {
 let $tiff := local:get-uri($doc, $page, "image")
-return local:make-iiif-uri($tiff)
+(:return local:make-iiif-uri($tiff):)
+return <img src="{local:make-iiif-uri($tiff)}" alt="{$tiff}"/>
 }
 </p>
 </div>
