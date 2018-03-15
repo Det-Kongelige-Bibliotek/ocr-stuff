@@ -67,7 +67,7 @@ return
 	  let $did := $r//mds:recordInfo/mds:recordIdentifier/string()
 	  let $tit := $r//mds:title/string()
 	  let $notes := for $n in $r//mds:note return <span>{$n/string()}<br/></span>
-          return <div><p><strong>Author:</strong> {$author}<br/><strong>Title:</strong> {$tit}<br/><strong>Record:</strong> {$did}<br/><strong>Note:</strong>{$notes}</p><div><h2>Contents</h2>{if($page) then local:get-page($doc,$page,$did) else local:pages($doc,$doc//mts:structMap,$did)}</div></div>
+          return <div><p><strong>Author:</strong> {string-join($author,'; ')}<br/><strong>Title:</strong> {string-join($tit,'; ')}<br/><strong>Record:</strong> {$did}<br/><strong>Note:</strong>{$notes}</p><div><h2>Contents</h2>{if($page) then local:get-page($doc,$page,$did) else local:pages($doc,$doc//mts:structMap,$did)}</div></div>
 
 }
 </div>
