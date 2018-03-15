@@ -25,18 +25,14 @@ return
 <head><title>ID={$id}; PAGE={$page}</title><meta http-equiv="Content-Type" content="text/html;charset:UTF-8"/></head>
 <body>
 <h1>ID={$id}</h1>
-<form action="metadata-search.xq" method="get"><p>[<a href="start.xml">Start</a>]|[<input name="q" value="{$query}"/><input type="submit" value="search"/>]</p></form>
+<form action="metadata-search.xq" method="get"><p>[<a href="start.xml">Start</a>]|[<input name="q" value="{$query}"/><input type="submit" value="search"/>]|[<a href="./get-volume.xq?id={$id}&amp;q={$query}">back to volume</a>]</p></form>
 <div style="width:45%; float: left;">
 <h2>text goes here</h2>
-{
 
-}
 </div>
 <div  style="width:45%; float: left;">
 <h2>image goes here</h2>
-{
 
-}
 </div>
 
 </body>

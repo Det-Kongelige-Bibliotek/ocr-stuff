@@ -27,11 +27,14 @@ return $pg
 declare function local:pages($thewhole as node(),$doc as node(),$did as xs:string) as node()
 {
 
+let $i := request:get-parameter("id","")
+let $q := request:get-parameter("q","")
+
 let $pages :=
 <table>{
 for $d in $doc/mts:div|$doc/mts:fptr
   return
-  if(local-name($d)="div") then <tr><td valign="top">{$d/@ID/string()} lable={$d/@LABEL/string()}</td><td valign="top">{local:pages($thewhole,$d,$did)}</td></tr>
+  if(local-name($d)="div") then <tr><td valign="top"><strong>view: </strong><a href="./view-page.xq?id={$i}&amp;q={$q}&amp;page={$d/@ID/string()}">{$d/@ID/string()}</a> lable={$d/@LABEL/string()}</td><td valign="top">{local:pages($thewhole,$d,$did)}</td></tr>
   else 
   <ul> {
   for $a in $d//mts:area

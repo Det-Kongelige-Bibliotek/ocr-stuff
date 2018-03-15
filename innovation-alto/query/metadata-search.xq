@@ -28,7 +28,7 @@ return
 	return $a/mds:namePart/string()
 	let $did := $doc//mts:dmdSec[@ID="MODSMD_PRINT"]//mds:mods/mds:recordInfo/mds:recordIdentifier/string()
 	let $tit := $doc//mts:dmdSec[@ID="MODSMD_PRINT"][1]//mds:mods//mds:title/string()
-	let $href := <a href="./get-volume.xq?id={$did}">{$doc//mds:mods//mds:title/string()}</a>
+	let $href := <a href="./get-volume.xq?id={$did}&amp;q={$query}">{$doc//mds:mods//mds:title/string()}</a>
 	return <p><strong>Author:</strong> {$author}<br/><strong>Title:</strong> {$href}<br/><strong>Record:</strong> {$did}</p>
 }
 </div>
