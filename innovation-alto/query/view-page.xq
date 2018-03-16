@@ -7,7 +7,6 @@ declare namespace response="http://exist-db.org/xquery/response";
 declare namespace mts="http://www.loc.gov/METS/";
 declare namespace mds="http://www.loc.gov/mods/v3";
 declare namespace xlink="http://www.w3.org/1999/xlink";
-declare default element namespace "";
 
 declare option exist:serialize "method=xml media-type=text/html encoding=UTF-8";           
 
@@ -78,7 +77,7 @@ let $ruri := local:get-uri($doc, $page, "text")
 
 let $text := replace(local:get-uri($doc, $page, "text"),"(^.*?)(ocr)(.*$)","$2$3") 
 
-return doc(resolve-uri($text,base-uri($doc)))
+return doc(resolve-uri($text,base-uri($doc)))/alto/Description
 
 }
 </div>
