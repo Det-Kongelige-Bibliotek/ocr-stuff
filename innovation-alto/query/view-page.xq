@@ -72,27 +72,23 @@ return
 <form action="metadata-search.xq" method="get"><p>[<a href="start.xml">Start</a>]|[<input name="q" value="{$query}"/><input type="submit" value="search"/>]|[<a href="./get-volume.xq?id={$id}&amp;q={$query}">back to volume</a>]</p></form>
 <p>{local:browse($doc, $page,"previous")} | {local:browse($doc, $page,"next")}</p>
 <div style="width:45%; float: left;">
-<h2>text goes here</h2>
 {
-
 let $ruri := local:get-uri($doc, $page, "text")
 
 let $text := replace(local:get-uri($doc, $page, "text"),"(^.*?)(ocr)(.*$)","$2$3") 
 let $alto := doc(resolve-uri($text,base-uri($doc)))
 let $hdoc := transform:transform($alto,$op,())
 
-return $hdoc
-
+return <div><strong>{$text}</strong>
+{$hdoc}
+</div>
 }
 </div>
 <div  style="width:45%; float: left;">
-<h2>image goes here</h2>
-<p>
 {
 let $tiff := local:get-uri($doc, $page, "image")
-return <img src="{local:make-iiif-uri($tiff)}" alt="{$tiff}"/>
+return <p><img src="{local:make-iiif-uri($tiff)}" alt="{$tiff}"/><br/>$tiff</p>
 }
-</p>
 </div>
 
 </body>
