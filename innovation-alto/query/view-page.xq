@@ -71,7 +71,7 @@ return
 <h1>ID={$id}</h1>
 <form action="metadata-search.xq" method="get"><p>[<a href="start.xml">Start</a>]|[<input name="q" value="{$query}"/><input type="submit" value="search"/>]|[<a href="./get-volume.xq?id={$id}&amp;q={$query}">back to volume</a>]</p></form>
 <p>{local:browse($doc, $page,"previous")} | {local:browse($doc, $page,"next")}</p>
-<div style="width:45%; float: left;">
+<div style="width:45%; float: left;margin-right:+2em;">
 {
 let $ruri := local:get-uri($doc, $page, "text")
 
@@ -84,10 +84,10 @@ return <div><strong>{$text}</strong>
 </div>
 }
 </div>
-<div  style="width:45%; float: left;">
+<div  style="width:45%; float: left;margin-left:+2em;">
 {
 let $tiff := local:get-uri($doc, $page, "image")
-return <p><img src="{local:make-iiif-uri($tiff)}" alt="{$tiff}"/><br/>$tiff</p>
+return <div><strong>{$tiff}</strong><br/><img src="{local:make-iiif-uri($tiff)}" alt="{$tiff}"/></div>
 }
 </div>
 
