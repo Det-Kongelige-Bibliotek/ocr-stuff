@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:transform  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:h="http://www.w3.org/1999/xhtml"
-		exclude-result-prefixes="h"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:fn="http://www.w3.org/2005/xpath-functions"
+		exclude-result-prefixes="h fn xs"
 		version="2">
 
   <xsl:output method="xml"
@@ -42,22 +43,25 @@
   <xsl:template match="TextBlock">
     <h:p>
       <xsl:call-template name="make_id"/>
-      <xsl:attribute name="style">
-	<xsl:call-template name="make_style"/>
-      </xsl:attribute>
+      <xsl:attribute name="style"><xsl:call-template name="make_style"/>width: <xsl:value-of select="@WIDTH"/>px;</xsl:attribute>
       <xsl:apply-templates select="TextLine"/>
     </h:p>
   </xsl:template>
 
   <xsl:template match="TextLine">
    <h:span>
+     <xsl:variable name="width" as="xs:integer" select="@WIDTH"/>
+     <xsl:variable name="parwid" as="xs:integer" select="parent::TextBlock/@WIDTH"/>
       <xsl:call-template name="make_id"/>
       <xsl:variable name="style">
 	<xsl:call-template name="make_style"/>
       </xsl:variable>
-      <xsl:if test="string-length($style)"><xsl:attribute name="style"><xsl:value-of select="$style"/></xsl:attribute></xsl:if>
-    <xsl:apply-templates select="String|SP"/><h:br/>
-   </h:span>
+      <xsl:attribute name="style">
+	<xsl:choose><xsl:when test="string-length($style)"><xsl:value-of select="$style"/></xsl:when>
+	<xsl:otherwise>text-align: inherit;width: <xsl:value-of select="100 * $width div $parwid"/>%;</xsl:otherwise></xsl:choose>
+      </xsl:attribute>
+    <xsl:apply-templates select="String|SP"/>
+   </h:span><h:br/>
   </xsl:template>
 
   <xsl:template match="SP"><xsl:text>
