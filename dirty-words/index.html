@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dirty Words - OCR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-inner">
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+
+                    <div class="span6">
+                        <a class="brand" href="#">
+                            Dirty Words
+                            <div class="muted">ALPHA_VER_0.1</div>
+                        </a>
+
+                    </div>
+
+                    <div class="span6">
+                        <p class="lead">
+                            <div class="progress active progress-striped ">
+                                <div class="bar bar-success" style="width: 35%;"><strong>35%</strong></div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Button to trigger modal -->
+    <!-- Modal -->
+    <div id="credit" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Thanks to</h3>
+        </div>
+        <div class="modal-body">
+            <p>
+                <small class="muted">Sigfrid Lundberg <br/>Ronan McHugh<br/>‎Tom Juul Andersen<br/></small>‎
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div>
+
+    <div class="container-fluid ocrContent">
+        <div class="row-fluid">
+            <p class="ocrContent">
+
+            </p>
+        </div>
+    </div>
+
+
+    <footer class="container-fluid text-center">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="pagination">
+                    <ul>
+                        <li class="disabled"><a href="#">«</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+                <hr/>
+                <a href="#credit" class="muted" data-toggle="modal"><small>Team Dirty Words © 2013 </small></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/dirty_words.js"></script>
+
+</body>
+</html>
