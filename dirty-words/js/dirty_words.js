@@ -17,6 +17,7 @@ $(document).on("click", "span", function() {
     $(this).focus();
     $(this).addClass('label-active');
     startContent = $(this).text();
+//http://kb-images.kb.dk/public/pq/den-kbd-all-110304010217/den-kbd-all-110304010217-000/den-kbd-all-110304010217-000-0000B/full/full/0/native.jpg
     var url = "http://viewer-test-01.kb.dk/fcgi-bin/iipsrv.fcgi?FIF=seq-1.jp2&WID=3000&RGN=0.3277437261477969,0.4088843278111714,0.025802668230464742,0.021741644500983&CVT=jpeg";
     var img = $.get(url);
 
@@ -39,7 +40,7 @@ $(document).on("focusout", "span", function() {
 
 function fetchDocument() {
     $.ajax({
-        url : 'http://xstorage-test-01.kb.dk:8080/exist/rest/db/dirtytext/select-text.xq?id=ID10',
+        url : 'http://xstorage-test-01.kb.dk:8080/exist/rest/db/dirtytext/select-text.xq?id=P269_TB00001',
         //url: 'content.html',
         success: function(data) {
             $('.ocrContent').html(data);
