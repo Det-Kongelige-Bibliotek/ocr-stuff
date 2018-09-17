@@ -39,7 +39,7 @@ $(document).on("focusout", "span", function() {
 
 function fetchDocument() {
     $.ajax({
-        url : 'http://disdev-01.kb.dk/storage/dirtytext/select-text.xq?id=ID10',
+        url : 'http://xstorage-test-01.kb.dk:8080/exist/rest/db/dirtytext/select-text.xq?id=ID10',
         //url: 'content.html',
         success: function(data) {
             $('.ocrContent').html(data);

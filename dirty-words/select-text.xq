@@ -8,7 +8,7 @@ declare namespace util="http://exist-db.org/xquery/util";
 declare namespace ft="http://exist-db.org/xquery/lucene";
 declare namespace alto="http://schema.ccs-gmbh.com/ALTO";
 
-declare variable $id := request:get-parameter("id","") cast as xs:string;
+declare variable $id := request:get-parameter("id","ID2") cast as xs:string;
 
 declare variable $maxh := 25941;
 declare variable $maxw := 20463;
