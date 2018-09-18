@@ -42,7 +42,8 @@ for $block in collection("/db/dirtytext")//alto:TextBlock[@ID=$id]
 		,
 		let $text:=$token/@CONTENT/string()
 		  return $text
-            })
+	       
+            },<img style="display:none" class="image" src="http://kb-images.kb.dk/public/pq/den-kbd-all-110304010217/den-kbd-all-110304010217-001/den-kbd-all-110304010217-001-0014L/1529,1134,219,45/full/0/default.jpg"/>)
 	    return $string
     return $htmltoken
   return $htmlblock
