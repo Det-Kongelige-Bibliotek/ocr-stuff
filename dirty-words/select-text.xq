@@ -36,7 +36,7 @@ for $block in collection("/db/dirtytext")//alto:TextBlock[@ID=$id]
 				   $width  ,",",
 				   $height )},
 	      if($token/@WC cast as xs:double > 0.9) then 
-		()
+		attribute class {"label"}
 	      else 
 		attribute class {"label label-important" }
 		,
