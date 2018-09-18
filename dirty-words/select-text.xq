@@ -10,9 +10,17 @@ declare namespace alto="http://schema.ccs-gmbh.com/ALTO";
 
 declare variable $id := request:get-parameter("id","P269_TB00001") cast as xs:string;
 
-declare variable $maxh := 25941;
-declare variable $maxw := 20463;
+(: According to the IIIF server the image have this dimension :)
 
+declare variable $maxh := 3291;
+declare variable $maxw := 3024;
+
+(: Page size according to the alto file :)
+
+let $alto_ht := 2090
+let $alto_wd := 1920
+
+return
 <div>
 {
 for $block in collection("/db/dirtytext")//alto:TextBlock[@ID=$id]
@@ -25,16 +33,27 @@ for $block in collection("/db/dirtytext")//alto:TextBlock[@ID=$id]
 	    let $space := "&#160;"
 	    return $space
 	  else
-	    let $vpos   := $token/@VPOS
+	    let $vpos   := $token/@VPOS 
 	    let $hpos   := $token/@HPOS
 	    let $height := $token/@HEIGHT
 	    let $width  := $token/@WIDTH
-	    let $string :=
-	    (element span {
-              attribute id {concat("span",$hpos   ,",",
-	                           $vpos   ,",",
-				   $width  ,",",
-				   $height )},
+
+	    let $reso := 400
+	    let $x := $reso * number($hpos)   div 254
+	    let $y := $reso * number($vpos)   div 254
+	    let $h := $reso * number($height) div 254
+	    let $w := $reso * number($width)  div 254
+
+	   (: let $x := $maxw * number($vpos)   div $alto_wd
+	    let $y := $maxh * number($hpos)   div $alto_ht
+	    let $h := $maxh * number($height) div $alto_ht
+	    let $w := $maxw * number($width)  div $alto_wd :)
+
+	    let $posid := string-join((xs:integer($x),xs:integer($y),xs:integer($w),xs:integer($h)),",")
+
+	    let $string := 
+	    (comment{ concat($vpos ," ", $hpos ," ", $height ," ", $width ) },element span {
+              attribute id {$posid},
 	      if($token/@WC cast as xs:double > 0.9) then 
 		attribute class {"label"}
 	      else 
@@ -43,28 +62,12 @@ for $block in collection("/db/dirtytext")//alto:TextBlock[@ID=$id]
 		let $text:=$token/@CONTENT/string()
 		  return $text
 	       
-            },<img class="{concat("img",$hpos   ,",",
-	                           $vpos   ,",",
-				   $width  ,",",
-				   $height )}"
-		style="display:none"  src="http://kb-images.kb.dk/public/pq/den-kbd-all-110304010217/den-kbd-all-110304010217-001/den-kbd-all-110304010217-001-0014L/{$vpos},{$hpos},{$width},{$height}/full/0/default.jpg"/>)
+            },<img id="{concat("img",$posid)}" class="image"
+		style="display:none"  
+		src="http://kb-images.kb.dk/public/pq/den-kbd-all-110304010217/den-kbd-all-110304010217-001/den-kbd-all-110304010217-001-0014L/{$posid}/full/0/default.jpg"/>)
 	    return $string
     return $htmltoken
-  return $htmlblock
+  return ($htmlblock,<br/>)
 }
 </div>
-
-
-(:
-Image from LOC
-width 6738
-height 8497
-Size in alto coordinates
-alto-height 25941
-alto-width 20463
-Image Size width x height : 1705x2161
-432.0:534.0:6618.0:3261.0
-@HEIGHT,":",@WIDTH,":",@HPOS,":",@VPOS
-
-:)
 
