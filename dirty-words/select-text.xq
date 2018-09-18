@@ -44,11 +44,6 @@ for $block in collection("/db/dirtytext")//alto:TextBlock[@ID=$id]
 	    let $h := $reso * number($height) div 254
 	    let $w := $reso * number($width)  div 254
 
-	   (: let $x := $maxw * number($vpos)   div $alto_wd
-	    let $y := $maxh * number($hpos)   div $alto_ht
-	    let $h := $maxh * number($height) div $alto_ht
-	    let $w := $maxw * number($width)  div $alto_wd :)
-
 	    let $posid := string-join((xs:integer($x),xs:integer($y),xs:integer($w),xs:integer($h)),",")
 
 	    let $string := 
