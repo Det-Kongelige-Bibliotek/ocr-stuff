@@ -25,13 +25,13 @@ for $block in collection("/db/dirtytext")//alto:TextBlock[@ID=$id]
 	    let $space := "&#160;"
 	    return $space
 	  else
-	    let $vpos   := $token/@VPOS   div $maxh
-	    let $hpos   := $token/@HPOS   div $maxw
-	    let $height := $token/@HEIGHT div $maxh
-	    let $width  := $token/@WIDTH  div $maxw
+	    let $vpos   := $token/@VPOS
+	    let $hpos   := $token/@HPOS
+	    let $height := $token/@HEIGHT
+	    let $width  := $token/@WIDTH
 	    let $string :=
 	    (element span {
-              attribute id {concat($hpos   ,",",
+              attribute id {concat("span",$hpos   ,",",
 	                           $vpos   ,",",
 				   $width  ,",",
 				   $height )},
@@ -43,7 +43,11 @@ for $block in collection("/db/dirtytext")//alto:TextBlock[@ID=$id]
 		let $text:=$token/@CONTENT/string()
 		  return $text
 	       
-            },<img style="display:none" class="image" src="http://kb-images.kb.dk/public/pq/den-kbd-all-110304010217/den-kbd-all-110304010217-001/den-kbd-all-110304010217-001-0014L/1529,1134,219,45/full/0/default.jpg"/>)
+            },<img class="{concat("img",$hpos   ,",",
+	                           $vpos   ,",",
+				   $width  ,",",
+				   $height )}"
+		style="display:none"  src="http://kb-images.kb.dk/public/pq/den-kbd-all-110304010217/den-kbd-all-110304010217-001/den-kbd-all-110304010217-001-0014L/{$vpos},{$hpos},{$width},{$height}/full/0/default.jpg"/>)
 	    return $string
     return $htmltoken
   return $htmlblock
