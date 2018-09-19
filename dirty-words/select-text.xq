@@ -70,20 +70,18 @@ for $block in $doc//alto:TextBlock
 
 		   let $string := 
 		       (
-			comment{
-				concat($vpos ," ", $hpos ," ", $height ," ", $width ) },element span {
-				attribute id {$tokid},
-				if($token/@WC cast as xs:double > 0.9) then 
-				attribute class {"label"}
-				else 
-				attribute class {"label label-important" }
-				,
-				let $text:=$token/@CONTENT/string()
-				return $text
-				},
-			<img id="{concat("img",$tokid)}" class="image"
-			     src="{$data_source}"
-			     style="display:none"/>)
+			  element span {
+			    attribute id {$tokid},
+			    if($token/@WC cast as xs:double > 0.9) then 
+		  	       attribute class {"label"}
+  			    else 
+			       attribute class {"label label-important" },
+ 			    let $text:=$token/@CONTENT/string()
+			    return $text
+			  },
+			  <img id="{concat("img",$tokid)}" class="image"
+			       src="{$data_source}"
+			       style="display:none"/>)
   		    return $string
 	return $htmltoken
 	} </p>
