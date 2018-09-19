@@ -15,30 +15,12 @@ declare variable $coll := "/db/dirtytext";
 declare function local:enter-text(
   $id   as xs:string,
   $doc  as node(),
-  $text as xs:string*
+  $text as xs:string+) as node()*
 {
-  let $content := $doc//node()[@xml:id=$id]/@CONTENT
   let $new_content := attribute CONTENT {$text}		
+  let $u           := update replace  $doc//alto:String[@ID=$id]/@CONTENT with $new_content
 
-  let $bibl_date    := $doc//t:bibl[@xml:id = $letter/@decls]/t:date
-
-  let $date_struct  := $json//pair[@name="date"]
-  let $date_val     := $date_struct/pair[@name="edtf"]/text()
-
-
-  let $mid          := concat("idm",util:uuid())
-  let $date         := <t:date xml:id="{$mid}">{$date_val}</t:date>
-  let $u            := update replace $bibl_date with $date
-  let $same :=
-    if($date_struct/pair[@name="xml_id"]/text()) then
-      let $date_text_id := $date_struct/pair[@name="xml_id"]/text()
-      let $s            := update insert attribute sameAs {$mid} into 
-	$letter//t:date[@xml:id = $date_text_id]
-      return $s
-    else
-      ""
-
-  return ()
+  return ($u)
     
 };
 
@@ -48,9 +30,16 @@ for $d in collection($coll)
 where contains(util:document-name($d),$file)
 return $d
 
-let $wid  := request:get-parameter("wid","P21_ST00017")  cast as xs:string
-let $text := request:get-parameter("text","") cast as xs:string
+let $wid  := request:get-parameter("id","P21_ST00017")  cast as xs:string
+let $text := request:get-parameter("text","full of shit") cast as xs:string
+
+let $run :=
+if(contains(request:get-parameter("text","empty"),"empty")) then
+	()
+else
+	local:enter-text($wid,$doc,$text)
+
 
 for $word in $doc//alto:String[@ID=$wid]
-    return <span>{$word}</span>
+    return (<span>{$word}</span>, comment {$text})
 
