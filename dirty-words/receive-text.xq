@@ -18,9 +18,16 @@ declare function local:enter-text(
   $text as xs:string+) as node()*
 {
   let $new_content := attribute CONTENT {$text}		
+  let $cs          := attribute CS {"true"}
   let $u           := update replace  $doc//alto:String[@ID=$id]/@CONTENT with $new_content
+	
+  let $v           :=
+	if($doc//alto:String[@ID=$id]/@CS) then
+	update replace  $doc//alto:String[@ID=$id]/@CS with $cs
+        else
+	update insert $cs into $doc//alto:String[@ID=$id]
 
-  return ($u)
+  return ($u,$v)
     
 };
 
@@ -34,10 +41,10 @@ let $wid  := request:get-parameter("id","P21_ST00017")  cast as xs:string
 let $text := request:get-parameter("text","full of shit") cast as xs:string
 
 let $run :=
-if(contains(request:get-parameter("text","empty"),"empty")) then
-	()
+if(contains(request:get-parameter("text","3@empty¤%%"),"3@empty¤%%")) then
+  local:enter-text($wid,$doc,"&#032;")
 else
-	local:enter-text($wid,$doc,$text)
+  local:enter-text($wid,$doc,$text)
 
 
 for $word in $doc//alto:String[@ID=$wid]
