@@ -47,7 +47,8 @@ for $block in $doc//alto:TextBlock
 	<p id="{$blid}">  {
 
 	 for $line in $block/alto:TextLine
-	     return
+	     let $lid := $line/@ID
+	     let $htmlline :=
 		for $token in $line/alto:SP|$line/alto:String
 		let $tokid := $token/@ID
 		let $htmltoken :=
@@ -68,25 +69,26 @@ for $block in $doc//alto:TextBlock
 		   let $posid := string-join((xs:integer($x),xs:integer($y),xs:integer($w),xs:integer($h)),",")
 		   let $data_source := concat("http://kb-images.kb.dk/public/pq/den-kbd-all-110304010217/den-kbd-all-110304010217-001/den-kbd-all-110304010217-001-0014L/",$posid,"/full/0/default.jpg")
 
-		   let $string := 
-		       (
-			comment{
-				concat($vpos ," ", $hpos ," ", $height ," ", $width ) },element span {
-				attribute id {$tokid},
-				if($token/@WC cast as xs:double > 0.9) then 
-				attribute class {"label"}
-				else 
-				attribute class {"label label-important" }
-				,
-				let $text:=$token/@CONTENT/string()
-				return $text
-				},
-			<img id="{concat("img",$tokid)}" class="image"
-			     src="{$data_source}"
-			     style="display:none"/>)
-  		    return $string
-	return $htmltoken
-	} </p>
+		   let $image := <img id="{concat("img",$tokid)}" class="image"
+			       src="{$data_source}"
+			       style="display:none"/>
+
+ 		   let $text:= $token/@CONTENT/string()
+
+		   let $string_ele := 
+		       element span {
+			    attribute id {$tokid},
+			    if($token/@WC cast as xs:double > 0.9 or $token/@CS[. = "true"]) then 
+		  	       attribute class {"label"}
+  			    else 
+			       attribute class {"label label-important" },
+			    $text,
+			    $image
+			}
+  		    return $string_ele
+		return $htmltoken
+	   return ($htmlline,<br id="{$lid}"/>) }
+	 </p>
   return ($htmlblock)
 }
 </div>
