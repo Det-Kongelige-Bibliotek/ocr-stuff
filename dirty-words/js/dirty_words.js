@@ -1,27 +1,30 @@
 /**
- * Created with IntelliJ IDEA.
- * User: romc
- * Date: 21-05-13
- * Time: 09:42
- * To change this template use File | Settings | File Templates.
+ * User: NKH
+ * Date: 19-09-18
  */
+
+
 $(document).ready( function() {
-
-    fetchDocument();
-
+   fetchDocument();
 });
 
+
+var $imgid = "";
+
 //make text field editable on click
-$(document).on("click", "span", function() {
+$(document).on("click", "span", function(event) {
+    if ($imgid){
+       $(document.getElementById($imgid)).hide();
+    }
     $(this).attr('contenteditable', true);
     $(this).focus();
     $(this).addClass('label-active');
     startContent = $(this).text();
-//http://kb-images.kb.dk/public/pq/den-kbd-all-110304010217/den-kbd-all-110304010217-000/den-kbd-all-110304010217-000-0000B/full/full/0/native.jpg
-    var url = "http://viewer-test-01.kb.dk/fcgi-bin/iipsrv.fcgi?FIF=seq-1.jp2&WID=3000&RGN=0.3277437261477969,0.4088843278111714,0.025802668230464742,0.021741644500983&CVT=jpeg";
-    var img = $.get(url);
 
-    console.debug(img);
+    $imgid = "img"+$(this).attr('id');
+       var sp = $(this);
+       var position = sp.position();  
+       $(document.getElementById($imgid)).css({"position":"absolute","left":10 ,"top":position.top+20}).show();    
 });
 
 //remove highlight when focus leaves
@@ -31,16 +34,25 @@ $(document).on("focusout", "span", function() {
     $(this).attr('contenteditable', false);
     //if text has been updated, remove label
     if (updatedContent != startContent) {
-        $(this).removeClass('label');
+        //$(this).removeClass('label');
         $(this).removeClass('label-important');
     }
+    $spanid = $imgid.replace('img', '');
+    $geturl = "http://xstorage-test-01.kb.dk:8080/exist/rest/db/dirtytext/receive-text.xq?id="+$spanid+"&text="+$(this).text()+"&file=den-kbd-all-110304010217-001-0014L.xml";
+    var update = $.get( $geturl , function() {
+       })
+         .done(function() {
+       })
+         .fail(function() {
+            console.log( "error" );
+       });
 
     updateProgressBar();
 });
 
 function fetchDocument() {
     $.ajax({
-        url : 'http://xstorage-test-01.kb.dk:8080/exist/rest/db/dirtytext/select-text.xq?id=P269_TB00001',
+        url : 'http://xstorage-test-01.kb.dk:8080/exist/rest/db/dirtytext/select-text.xq?file=den-kbd-all-110304010217-001-0014L.xml',
         //url: 'content.html',
         success: function(data) {
             $('.ocrContent').html(data);
@@ -63,6 +75,7 @@ function updateProgressBar() {
     var numErrors = $('.label-important').length;
     var numCorrect = numWords - numErrors;
     var progress = parseInt((100/numWords) * numCorrect);
+
     $('.bar-success').css("width", progress + "%");
     $('.bar-success').text(progress + "%");
 
